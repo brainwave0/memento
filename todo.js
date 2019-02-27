@@ -3,7 +3,7 @@ var ToDo = {
     return Math.max(min, Math.min(max, value))
   },
   boundedNice: function (nice) {
-    return bounded(-20, 19, nice)
+    return this.bounded(-20, 19, nice)
   },
   currentDateTime: function () {return moment().toDate().getTime()},
   started: function (ent) {return ent.field("Started") == 1},
