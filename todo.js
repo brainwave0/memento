@@ -1,6 +1,9 @@
 var ToDo = {
+  bounded: function (min, max, value) {
+    return Math.max(min, Math.min(max, value))
+  },
   boundedNice: function (nice) {
-    return Math.max(-20, Math.min(19, value))
+    return bounded(-20, 19, nice)
   },
   currentDateTime: function () {return moment().toDate().getTime()},
   started: function (ent) {return ent.field("Started") == 1},
@@ -33,9 +36,7 @@ var ToDo = {
       entry().set("Timer start", this.currentDateTime())
 
       var activeEntries = lib().entries().filter(this.started).length
-      var slice = waitTime / activeEntries
-      slice = Math.max(10 * 60, slice)
-      slice = Math.min(60 * 60, slice)
+      var slice = this.bounded(10 * 60, 60 * 60, waitTime / activeEntries)
       AndroidAlarm.timer(slice)
     }
   },
