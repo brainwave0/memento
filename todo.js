@@ -45,7 +45,7 @@ var ToDo = {
   },
 
   finish: function () {
-    entry().set("doneDT", currentDateTime())
+    entry().set("doneDT", this.currentDateTime())
 
     var timesDone = entry().field("timesDone")
     entry().set("timesDone", timesDone + 1)
