@@ -8,16 +8,6 @@ var ToDo = {
   startStop: function () {
     var running = entry().field("Running")
     if (running) {
-      entry().set("Running", true)
-
-      entry().set("Timer start", this.currentDateTime())
-
-      var activeEntries = lib().entries().filter(this.started).length
-      var slice = waitTime / activeEntries
-      slice = Math.max(10 * 60, slice)
-      slice = Math.min(60 * 60, slice)
-      AndroidAlarm.timer(slice)
-    } else {
       var deltaExec = moment().diff(timerStart, "seconds")
 
       var nice = entry().field("nice")
@@ -37,6 +27,16 @@ var ToDo = {
       entry().set("Wait time", 0)
 
       entry().set("putOffs", 0)
+    } else {
+      entry().set("Running", true)
+
+      entry().set("Timer start", this.currentDateTime())
+
+      var activeEntries = lib().entries().filter(this.started).length
+      var slice = waitTime / activeEntries
+      slice = Math.max(10 * 60, slice)
+      slice = Math.min(60 * 60, slice)
+      AndroidAlarm.timer(slice)
     }
   },
 
