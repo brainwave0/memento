@@ -16,7 +16,8 @@ var ToDo = {
       var nice = entry().field("nice")
       var weight = 1024 / Math.pow(1.25, nice)
       var deltaExecWeighted = deltaExec * 20 / weight
-      entry().set("vruntime", deltaExecWeighted)
+      var vruntime = entry().field("vruntime")
+      entry().set("vruntime", vruntime + deltaExecWeighted)
 
       entry().set("Running", false)
 
