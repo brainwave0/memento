@@ -11,6 +11,7 @@ var ToDo = {
   startStop: function () {
     var running = entry().field("Running")
     if (running) {
+      var timerStart = entry().field("Timer start")
       var deltaExec = moment().diff(timerStart, "seconds")
 
       var nice = entry().field("nice")
@@ -21,7 +22,6 @@ var ToDo = {
 
       entry().set("Running", false)
 
-      var timerStart = entry().field("Timer start")
       var entries = lib().entries()
       for (var i = 0; i < entries.length; i++) {
         var waitTime = entries[i].field("Wait time")
