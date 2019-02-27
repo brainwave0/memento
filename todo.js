@@ -38,6 +38,7 @@ var ToDo = {
       var activeEntries = lib().entries().filter(this.started).length
       var waitTime = entry().field("Wait time")
       var slice = this.bounded(10 * 60, 60 * 60, waitTime / activeEntries)
+      var name = entry().field("Name")
       AndroidAlarm.timer(slice, name, true)
     }
   },
