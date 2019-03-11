@@ -69,7 +69,7 @@ var ToDo = {
   raisePriority: function () {
     var nice = entry().field("nice")
     var started = entry().field("started")
-    if (started) {
+    if (started == 1) {
       entry().set("nice", this.boundedNice(nice - 1))
 
       function onVruntime(a, b) {
