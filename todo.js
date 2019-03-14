@@ -40,8 +40,18 @@ function startStop() {
     entry().recalc()
     var avgMinTime = entry().field("avgMinTime")
     var avgMaxTime = entry().field("avgMaxTime")
-    var min = Math.max(avgMinTime, 10 * 60)
-    var max = Math.min(avgMaxTime, 60 * 60)
+    var min
+    var max
+    if (avgMinTime > 0) {
+      min = avgMinTime
+    } else {
+      min = 10 * 60
+    }
+    if (avgMaxTime > 0) {
+      max = avgMaxTime
+    } else {
+      max = 60 * 60
+    }
     var slice = bounded(min, max, waitTime / activeEntries)
     var name = entry().field("Name")
     AndroidAlarm.timer(slice, name, false)
