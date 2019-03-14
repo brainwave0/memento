@@ -68,23 +68,9 @@ var ToDo = {
 
   raisePriority: function () {
     var nice = entry().field("nice")
-    var started = entry().field("started")
-    if (started == 1) {
-      entry().set("nice", this.boundedNice(nice - 1))
+    entry().set("nice", this.boundedNice(nice - 1))
 
-      function onVruntime(a, b) {
-        return a.field("vruntime") - b.field("vruntime")
-      }
-      var toDoList =
-        lib().entries().filter(this.started).sort(onVruntime)
-      function isThisEntry(ent) {
-        return ent.field("Name") == entry().field("Name")
-      }
-      var prev = toDoList[toDoList.findIndex(isThisEntry) - 1]
-      if (prev && prev.field("vruntime")) {
-        var vruntime = entry().field("vruntime")
-        entry().set("vruntime", vruntime / 2)
-      } else if (prev) {entry().set("vruntime", 0)}
-    } else {entry().set("putOffs", 0)}
+    var vruntime = entry().field("vruntime")
+    entry().set("vruntime", vruntime / 2)
   }
 }
