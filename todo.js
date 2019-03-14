@@ -72,5 +72,10 @@ var ToDo = {
 
     var vruntime = entry().field("vruntime")
     entry().set("vruntime", vruntime / 2)
+  },
+
+  activate: function () {
+    entry().set("doneDT", null)
+    entry().set("putOffs", 0)
   }
 }
