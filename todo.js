@@ -43,12 +43,12 @@ function startStop() {
     var min
     var max
     if (avgMinTime > 0) {
-      min = avgMinTime
+      min = avgMinTime * 0.9
     } else {
       min = 10 * 60
     }
     if (avgMaxTime > 0) {
-      max = avgMaxTime
+      max = avgMaxTime * 0.9
     } else {
       max = 60 * 60
     }
