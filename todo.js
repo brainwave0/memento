@@ -70,11 +70,9 @@ function putOff() {
 }
 function lowerPriority() {
   entry().set("nice", boundedNice(nice + 1))
-  entry().set("vruntime", vruntime * 2)
 }
 function raisePriority() {
   entry().set("nice", boundedNice(nice - 1))
-  entry().set("vruntime", vruntime / 2)
 }
 function activate() {
   entry().set("doneDT", null)
