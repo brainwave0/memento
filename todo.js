@@ -25,7 +25,7 @@ function startStop() {
     }
     entry().set("Wait time", 0)
     entry().set("putOffs", 0)
-    if (deltaExec > timerDuration) {
+    if (deltaExec < timerDuration) {
       entry().set("maxTime", maxTime + deltaExec)
       entry().set("maxs", maxs + 1)
     } else {
