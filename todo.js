@@ -43,7 +43,7 @@ function startStop() {
       timerDuration = (timerMin + timerMax) / 2
     }
     if (!timerDuration || timerDuration <= 0) {
-      throw "timerDuration is " + String(timerDuration)
+      throw String(timerMin) + " " + String(timerMax) + " " + String(timerDuration) + " " + String(slice)
     }
     AndroidAlarm.timer(timerDuration, name, false)
     entry().set("lastDuration", timerDuration)
