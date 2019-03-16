@@ -36,7 +36,7 @@ function startStop() {
     entry().set("Timer start", currentDateTime())
     var activeEntries = lib().entries().filter(started).length
     var slice = waitTime / activeEntries
-    var timerDuration
+    var timerDuration = 0
     if (timerMin < timerMax) {
       timerDuration = bounded(timerMin, timerMax, slice)
     } else {
