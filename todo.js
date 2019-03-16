@@ -43,7 +43,6 @@ function startStop() {
       timerDuration = (timerMin + timerMax) / 2
     }
     AndroidAlarm.timer(timerDuration, name, false)
-    entry().set("timerDuration", timerDuration)
     entry().set("lastDuration", timerDuration)
   }
 }
