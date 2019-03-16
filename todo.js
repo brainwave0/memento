@@ -1,3 +1,14 @@
+var nice = entry().field("nice")
+var vruntime = entry().field("vruntime")
+var running = entry().field("Running")
+var timerStart = entry().field("Timer start")
+var waitTime = entry().field("Wait time")
+var name = entry().field("Name")
+var timerMin = entry().field("timerMin")
+var timerMax = entry().field("timerMax")
+var timesDone = entry().field("timesDone")
+var putOffs = entry().field("putOffs")
+var lastDuration = entry().field("lastDuration")
 function bounded(min, max, value) {
   return  Math.min(max, Math.max(min, value))
 }
@@ -6,13 +17,8 @@ function boundedNice(nice) {
 }
 function currentDateTime() {return moment().toDate().getTime()}
 function started(ent) {return ent.field("Started") == 1}
-var nice = entry().field("nice")
-var vruntime = entry().field("vruntime")
 function startStop() {
-  var running = entry().field("Running")
-  var timerDuration = entry().field("timerDuration")
   if (running) {
-    var timerStart = entry().field("Timer start")
     var deltaExec = moment().diff(timerStart, "seconds")
     var weight = 1024 / Math.pow(1.25, nice)
     var deltaExecWeighted = deltaExec * 20 / weight
@@ -25,46 +31,27 @@ function startStop() {
     }
     entry().set("Wait time", 0)
     entry().set("putOffs", 0)
-    if (deltaExec < timerDuration) {
-      entry().set("maxTime", maxTime + deltaExec)
-      entry().set("maxs", maxs + 1)
-    } else {
-      entry().set("minTime", minTime + deltaExec)
-      entry().set("mins", mins + 1)
-    }
   } else {
     entry().set("Running", true)
     entry().set("Timer start", currentDateTime())
     var activeEntries = lib().entries().filter(started).length
-    var waitTime = entry().field("Wait time")
-    entry().recalc()
-    var avgMinTime = entry().field("avgMinTime")
-    var avgMaxTime = entry().field("avgMaxTime")
-    var min
-    var max
-    if (avgMinTime > 0) {
-      min = avgMinTime * 0.9
+    var slice = waitTime / activeEntries
+    var timerDuration
+    if (timerMin < timerMax) {
+      timerDuration = bounded(timerMin, timerMax, slice)
     } else {
-      min = 10 * 60
+      timerDuration = (timerMin + timerMax) / 2
     }
-    if (avgMaxTime > 0) {
-      max = avgMaxTime * 0.9
-    } else {
-      max = 60 * 60
-    }
-    var slice = bounded(min, max, waitTime / activeEntries)
-    var name = entry().field("Name")
-    AndroidAlarm.timer(slice, name, false)
-    entry().set("timerDuration", slice)
+    AndroidAlarm.timer(timerDuration, name, false)
+    entry().set("timerDuration", timerDuration)
+    entry().set("lastDuration", timerDuration)
   }
 }
 function finish() {
   entry().set("doneDT", currentDateTime())
-  var timesDone = entry().field("timesDone")
   entry().set("timesDone", timesDone + 1)
 }
 function putOff() {
-  var putOffs = entry().field("putOffs")
   entry().set("putOffs", putOffs + 1)
   entry().set("putOffDT", currentDateTime())
 }
@@ -77,4 +64,10 @@ function raisePriority() {
 function activate() {
   entry().set("doneDT", null)
   entry().set("putOffs", 0)
+}
+function raiseTimerDuration() {
+  entry().set("timerMin", lastDuration)
+}
+function limitTimerDuration() {
+  entry().set("timerMax", lastDuration * 0.9)
 }
