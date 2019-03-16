@@ -26,7 +26,7 @@ function startStop() {
     entry().set("Running", false)
     var entries = lib().entries()
     for (var i = 0; i < entries.length; i++) {
-      var waitTime = entries[i].field("Wait time")
+      waitTime = entries[i].field("Wait time")
       entries[i].set("Wait time", waitTime + deltaExec)
     }
     entry().set("Wait time", 0)
