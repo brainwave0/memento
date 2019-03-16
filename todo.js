@@ -42,7 +42,6 @@ function startStop() {
     } else {
       timerDuration = (timerMin + timerMax) / 2
     }
-    throw String(waitTime) + " " + String(nice) + "!"
     AndroidAlarm.timer(timerDuration, name, false)
     entry().set("lastDuration", timerDuration)
   }
