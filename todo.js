@@ -31,6 +31,7 @@ function startStop() {
     }
     entry().set("Wait time", 0)
     entry().set("putOffs", 0)
+    entry().set("lastDuration", deltaExec)
   } else {
     entry().set("Running", true)
     entry().set("Timer start", currentDateTime())
@@ -43,7 +44,6 @@ function startStop() {
       timerDuration = (timerMin + timerMax) / 2
     }
     AndroidAlarm.timer(timerDuration, name, false)
-    entry().set("lastDuration", timerDuration)
   }
 }
 function finish() {
