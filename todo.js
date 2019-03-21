@@ -68,5 +68,5 @@ function raiseTimerDuration() {
   entry().set("timerMin", lastDuration)
 }
 function limitTimerDuration() {
-  entry().set("timerMax", lastDuration * 0.9)
+  entry().set("timerMax", lastDuration * 0.8)
 }
